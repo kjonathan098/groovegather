@@ -17,6 +17,8 @@ const common_1 = require("@nestjs/common");
 const songs_service_1 = require("./songs.service");
 const add_song_dto_1 = require("./dto/add-song.dto");
 const platform_express_1 = require("@nestjs/platform-express");
+const Papa = require("papaparse");
+const fs = require("fs");
 let SongsController = class SongsController {
     constructor(songsService) {
         this.songsService = songsService;
@@ -27,8 +29,30 @@ let SongsController = class SongsController {
         return res;
     }
     async addBulkSongs(file) {
-        console.log(file);
-        return 'afaf';
+        const fileContent = fs.readFileSync(file.path, 'utf8');
+        return new Promise((resolve, reject) => {
+            Papa.parse(fileContent, {
+                header: true,
+                transform: (value) => value.toLowerCase(),
+                complete: async (result) => {
+                    const validSongs = result.data.filter((item) => item['Song Name'] && item.Band && item.Year);
+                    const operations = validSongs.map(async (song) => {
+                        const addSongDto = new add_song_dto_1.AddSongDto();
+                        addSongDto.bandName = song.Band;
+                        addSongDto.songName = song['Song Name'];
+                        addSongDto.year = parseInt(song.Year);
+                        const bandId = await this.songsService.addBand(addSongDto);
+                        await this.songsService.addSong(addSongDto, bandId);
+                    });
+                    await Promise.all(operations);
+                    resolve('All songs have been successfully added to the database.');
+                },
+                error: (error) => {
+                    console.log('rejecteedddd');
+                    reject(error);
+                },
+            });
+        });
     }
     async fetchAllSongs() {
         return await this.songsService.getAllSongs();
