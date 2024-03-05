@@ -1,4 +1,11 @@
-import { Body, Controller, Post, Get } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Get,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { SongsService } from './songs.service';
 import { AddSongDto } from './dto/add-song.dto';
 
@@ -7,6 +14,7 @@ export class SongsController {
   constructor(private readonly songsService: SongsService) {}
 
   @Post()
+  @UsePipes(ValidationPipe)
   async addSong(@Body() addSongDto: AddSongDto) {
     // first add band to DB
     const bandId = await this.songsService.addBand(addSongDto);
