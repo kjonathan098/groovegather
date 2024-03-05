@@ -16,6 +16,7 @@ exports.SongsController = void 0;
 const common_1 = require("@nestjs/common");
 const songs_service_1 = require("./songs.service");
 const add_song_dto_1 = require("./dto/add-song.dto");
+const platform_express_1 = require("@nestjs/platform-express");
 let SongsController = class SongsController {
     constructor(songsService) {
         this.songsService = songsService;
@@ -25,8 +26,9 @@ let SongsController = class SongsController {
         const res = await this.songsService.addSong(addSongDto, bandId);
         return res;
     }
-    async addBulkSongs(songsArray) {
-        return 'hello';
+    async addBulkSongs(file) {
+        console.log(file);
+        return 'afaf';
     }
     async fetchAllSongs() {
         return await this.songsService.getAllSongs();
@@ -42,8 +44,9 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], SongsController.prototype, "addSong", null);
 __decorate([
-    (0, common_1.Post)('bulk'),
-    __param(0, (0, common_1.Body)('data')),
+    (0, common_1.Post)('file'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('songsCsv', { dest: './uploads' })),
+    __param(0, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)

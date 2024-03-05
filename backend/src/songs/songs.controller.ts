@@ -5,9 +5,12 @@ import {
   Get,
   UsePipes,
   ValidationPipe,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { SongsService } from './songs.service';
 import { AddSongDto } from './dto/add-song.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('songs')
 export class SongsController {
@@ -24,9 +27,10 @@ export class SongsController {
     return res;
   }
 
-  @Post('bulk')
-  async addBulkSongs(@Body('data') songsArray: any) {
-    return 'hello';
+  @Post('file')
+  @UseInterceptors(FileInterceptor('songsCsv', { dest: './uploads' }))
+  async addBulkSongs(@UploadedFile() file: Express.Multer.File) {
+    return 'afaf';
   }
 
   @Get()

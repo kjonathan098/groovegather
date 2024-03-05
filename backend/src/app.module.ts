@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { SongsModule } from './songs/songs.module';
 import * as path from 'path';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
