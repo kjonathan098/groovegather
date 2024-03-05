@@ -47,6 +47,11 @@ export class SongsService {
       relations: {
         band: true,
       },
+      order: {
+        band: {
+          bandName: 'ASC',
+        },
+      },
     });
   }
 }
