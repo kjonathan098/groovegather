@@ -19,6 +19,7 @@ const SongListProvider = ({ children }: IProps) => {
 	const [testing, settesting] = useState('hello')
 	const [fetchingSongs, setFetchingSongs] = useState(false)
 	const [songList, setSongsList] = useState<ISong[]>([])
+	const [error, seterror] = useState()
 
 	const fetchSongs = async () => {
 		setFetchingSongs(true)

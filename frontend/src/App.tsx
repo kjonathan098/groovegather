@@ -3,6 +3,7 @@ import theme from './theme'
 import SongsTable from './components/SongsTable/SongsTable'
 import SongListProvider from './context/songsListProvider'
 import CsvUploader from './components/CsvUploader/CsvUploader'
+import Hero from './components/Hero/Hero'
 
 function App() {
 	return (
@@ -18,6 +19,7 @@ function App() {
 							</Show>
 
 							<GridItem area="main" bg={'primary'}>
+								<Hero />
 								<SongsTable />
 							</GridItem>
 						</Grid>
