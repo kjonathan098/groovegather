@@ -26,7 +26,6 @@ let SongsController = class SongsController {
         return res;
     }
     async addBulkSongs(songsArray) {
-        console.log(songsArray);
         return 'hello';
     }
     async fetchAllSongs() {
