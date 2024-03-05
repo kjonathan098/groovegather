@@ -19,7 +19,7 @@ import * as fs from 'fs';
 interface CsvSong {
   Band: string;
   'Song Name': string;
-  Year: string; // Assuming year is a string in the CSV, it will be parsed as such
+  Year: string;
 }
 
 @Controller('songs')
@@ -29,12 +29,16 @@ export class SongsController {
   @Post()
   @UsePipes(ValidationPipe)
   async addSong(@Body() addSongDto: AddSongDto) {
-    // first add band to DB
-    const bandId = await this.songsService.addBand(addSongDto);
+    try {
+      // first add band to DB
+      const bandId = await this.songsService.addBand(addSongDto);
 
-    // Add song under band
-    const res = await this.songsService.addSong(addSongDto, bandId);
-    return res;
+      // Add song under band
+      const res = await this.songsService.addSong(addSongDto, bandId);
+      return res;
+    } catch (error) {
+      throw error;
+    }
   }
 
   @Post('file')
@@ -67,7 +71,6 @@ export class SongsController {
           resolve('All songs have been successfully added to the database.');
         },
         error: (error: any) => {
-          console.log('rejecteedddd');
           reject(error);
         },
       });
@@ -76,6 +79,10 @@ export class SongsController {
 
   @Get()
   async fetchAllSongs() {
-    return await this.songsService.getAllSongs();
+    try {
+      return await this.songsService.getAllSongs();
+    } catch (error) {
+      throw error;
+    }
   }
 }

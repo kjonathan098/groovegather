@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Band } from './bands.entity';
 import { Repository } from 'typeorm';
@@ -28,36 +32,46 @@ export class SongsService {
   }
 
   async addSong(addSongDto: AddSongDto, bandId: number) {
-    // TypeORM Direct Assignment Not Recommended need to fetch from DB first
-    const band = await this.bandRepository.findOneBy({ id: bandId });
-    if (!band) {
-      throw new Error('Band not found');
+    try {
+      // TypeORM Direct Assignment Not Recommended need to fetch from DB first
+      const band = await this.bandRepository.findOneBy({ id: bandId });
+      if (!band) {
+        throw new NotFoundException('Band not found');
+      }
+
+      const { songName, year } = addSongDto;
+
+      const newSong = this.songRepository.create({
+        name: songName,
+        year: year,
+        band: band,
+      });
+
+      const res = await this.songRepository.save(newSong);
+
+      return res;
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'Failed to add the song due to an unexpected error. Please try again later.',
+      );
     }
-
-    const { songName, year } = addSongDto;
-
-    const newSong = this.songRepository.create({
-      name: songName,
-      year: year,
-      band: band,
-    });
-
-    const res = await this.songRepository.save(newSong);
-
-    return res;
   }
 
   // get all songs
   async getAllSongs(): Promise<Song[]> {
-    return await this.songRepository.find({
-      relations: {
-        band: true,
-      },
-      order: {
-        band: {
-          bandName: 'ASC',
+    try {
+      return await this.songRepository.find({
+        relations: {
+          band: true,
         },
-      },
-    });
+        order: {
+          band: {
+            bandName: 'ASC',
+          },
+        },
+      });
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to fetch songs');
+    }
   }
 }

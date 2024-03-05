@@ -24,9 +24,14 @@ let SongsController = class SongsController {
         this.songsService = songsService;
     }
     async addSong(addSongDto) {
-        const bandId = await this.songsService.addBand(addSongDto);
-        const res = await this.songsService.addSong(addSongDto, bandId);
-        return res;
+        try {
+            const bandId = await this.songsService.addBand(addSongDto);
+            const res = await this.songsService.addSong(addSongDto, bandId);
+            return res;
+        }
+        catch (error) {
+            throw error;
+        }
     }
     async addBulkSongs(file) {
         const fileContent = fs.readFileSync(file.path, 'utf8');
@@ -48,14 +53,18 @@ let SongsController = class SongsController {
                     resolve('All songs have been successfully added to the database.');
                 },
                 error: (error) => {
-                    console.log('rejecteedddd');
                     reject(error);
                 },
             });
         });
     }
     async fetchAllSongs() {
-        return await this.songsService.getAllSongs();
+        try {
+            return await this.songsService.getAllSongs();
+        }
+        catch (error) {
+            throw error;
+        }
     }
 };
 exports.SongsController = SongsController;

@@ -34,30 +34,40 @@ let SongsService = class SongsService {
         return id;
     }
     async addSong(addSongDto, bandId) {
-        const band = await this.bandRepository.findOneBy({ id: bandId });
-        if (!band) {
-            throw new Error('Band not found');
+        try {
+            const band = await this.bandRepository.findOneBy({ id: bandId });
+            if (!band) {
+                throw new common_1.NotFoundException('Band not found');
+            }
+            const { songName, year } = addSongDto;
+            const newSong = this.songRepository.create({
+                name: songName,
+                year: year,
+                band: band,
+            });
+            const res = await this.songRepository.save(newSong);
+            return res;
         }
-        const { songName, year } = addSongDto;
-        const newSong = this.songRepository.create({
-            name: songName,
-            year: year,
-            band: band,
-        });
-        const res = await this.songRepository.save(newSong);
-        return res;
+        catch (error) {
+            throw new common_1.InternalServerErrorException('Failed to add the song due to an unexpected error. Please try again later.');
+        }
     }
     async getAllSongs() {
-        return await this.songRepository.find({
-            relations: {
-                band: true,
-            },
-            order: {
-                band: {
-                    bandName: 'ASC',
+        try {
+            return await this.songRepository.find({
+                relations: {
+                    band: true,
                 },
-            },
-        });
+                order: {
+                    band: {
+                        bandName: 'ASC',
+                    },
+                },
+            });
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException('Failed to fetch songs');
+        }
     }
 };
 exports.SongsService = SongsService;
