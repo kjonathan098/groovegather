@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { SongsModule } from './songs/songs.module';
+import * as path from 'path';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { SongsModule } from './songs/songs.module';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [],
+        entities: [path.join(process.cwd(), 'dist/**/*.entity.js')],
         synchronize: true,
       }),
       inject: [ConfigService],

@@ -11,6 +11,7 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const config_1 = require("@nestjs/config");
 const songs_module_1 = require("./songs/songs.module");
+const path = require("path");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -28,7 +29,7 @@ exports.AppModule = AppModule = __decorate([
                     username: configService.get('DB_USERNAME'),
                     password: configService.get('DB_PASSWORD'),
                     database: configService.get('DB_NAME'),
-                    entities: [],
+                    entities: [path.join(process.cwd(), 'dist/**/*.entity.js')],
                     synchronize: true,
                 }),
                 inject: [config_1.ConfigService],
