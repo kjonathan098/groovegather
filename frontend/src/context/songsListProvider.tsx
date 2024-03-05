@@ -28,10 +28,11 @@ const SongListProvider = ({ children }: IProps) => {
 	}
 
 	const uploadFile = useCallback(async (file: File) => {
+		console.log('hello')
 		const formData = new FormData()
 		formData.append('file', file)
 		try {
-			await axios.post('http://localhost:4000/upload', formData, {
+			await axios.post('http://localhost:4000/songs', formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 				},

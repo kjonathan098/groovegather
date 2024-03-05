@@ -29,7 +29,7 @@ const SongsTable = () => {
 					<Tbody>
 						{songList?.map((song) => {
 							return (
-								<React.Fragment>
+								<React.Fragment key={song.id}>
 									<Tr>
 										<Td>{song.band.bandName}</Td>
 										<Td>{song.name}</Td>
