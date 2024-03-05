@@ -74,4 +74,12 @@ export class SongsService {
       throw new InternalServerErrorException('Failed to fetch songs');
     }
   }
+
+  async deleteSong(id: string) {
+    try {
+      await this.songRepository.delete(id);
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to delete song');
+    }
+  }
 }

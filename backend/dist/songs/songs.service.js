@@ -69,6 +69,14 @@ let SongsService = class SongsService {
             throw new common_1.InternalServerErrorException('Failed to fetch songs');
         }
     }
+    async deleteSong(id) {
+        try {
+            await this.songRepository.delete(id);
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException('Failed to delete song');
+        }
+    }
 };
 exports.SongsService = SongsService;
 exports.SongsService = SongsService = __decorate([

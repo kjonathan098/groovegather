@@ -9,4 +9,5 @@ export declare class SongsService {
     addBand(addSongDto: AddSongDto): Promise<number>;
     addSong(addSongDto: AddSongDto, bandId: number): Promise<Song>;
     getAllSongs(): Promise<Song[]>;
+    deleteSong(id: string): Promise<void>;
 }

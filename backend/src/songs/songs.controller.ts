@@ -7,12 +7,12 @@ import {
   ValidationPipe,
   UseInterceptors,
   UploadedFile,
+  Delete,
+  Param,
 } from '@nestjs/common';
 import { SongsService } from './songs.service';
 import { AddSongDto } from './dto/add-song.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { plainToInstance } from 'class-transformer';
-import { validate } from 'class-validator';
 import * as Papa from 'papaparse';
 import * as fs from 'fs';
 
@@ -26,6 +26,7 @@ interface CsvSong {
 export class SongsController {
   constructor(private readonly songsService: SongsService) {}
 
+  // add an individual song
   @Post()
   @UsePipes(ValidationPipe)
   async addSong(@Body() addSongDto: AddSongDto) {
@@ -41,6 +42,7 @@ export class SongsController {
     }
   }
 
+  // upload csv to db
   @Post('file')
   @UseInterceptors(FileInterceptor('songsCsv', { dest: './uploads' }))
   async addBulkSongs(@UploadedFile() file: Express.Multer.File) {
@@ -77,10 +79,21 @@ export class SongsController {
     });
   }
 
+  // fetch all songs
   @Get()
   async fetchAllSongs() {
     try {
       return await this.songsService.getAllSongs();
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // delete song
+  @Delete(':id')
+  async deleteSong(@Param('id') id: string) {
+    try {
+      await this.songsService.deleteSong(id);
     } catch (error) {
       throw error;
     }

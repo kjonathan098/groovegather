@@ -66,6 +66,14 @@ let SongsController = class SongsController {
             throw error;
         }
     }
+    async deleteSong(id) {
+        try {
+            await this.songsService.deleteSong(id);
+        }
+        catch (error) {
+            throw error;
+        }
+    }
 };
 exports.SongsController = SongsController;
 __decorate([
@@ -90,6 +98,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], SongsController.prototype, "fetchAllSongs", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], SongsController.prototype, "deleteSong", null);
 exports.SongsController = SongsController = __decorate([
     (0, common_1.Controller)('songs'),
     __metadata("design:paramtypes", [songs_service_1.SongsService])
