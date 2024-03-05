@@ -5,7 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Band } from './bands.entity'; // Ensure the path is correct
+import { Band } from './bands.entity';
 
 @Entity('Songs')
 export class Song {
@@ -19,6 +19,6 @@ export class Song {
   year: number;
 
   @ManyToOne(() => Band, (band) => band.songs)
-  @JoinColumn({ name: 'BandID' }) // This matches the BandID column in the Songs table
+  @JoinColumn({ name: 'bandID' })
   band: Band;
 }

@@ -19,8 +19,10 @@ let SongsController = class SongsController {
     constructor(songsService) {
         this.songsService = songsService;
     }
-    addSong(bandName, songName, year) {
-        return this.songsService.addBand(bandName);
+    async addSong(bandName, songName, year) {
+        const bandId = await this.songsService.addBand(bandName);
+        const res = await this.songsService.addSong({ songName, year, bandId });
+        return res;
     }
 };
 exports.SongsController = SongsController;
@@ -31,7 +33,7 @@ __decorate([
     __param(2, (0, common_1.Body)('year')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, Number]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], SongsController.prototype, "addSong", null);
 exports.SongsController = SongsController = __decorate([
     (0, common_1.Controller)('songs'),

@@ -6,11 +6,13 @@ export class SongsController {
   constructor(private readonly songsService: SongsService) {}
 
   @Post()
-  addSong(
+  async addSong(
     @Body('bandName') bandName: string,
     @Body('songName') songName: string,
     @Body('year') year: number,
   ) {
-    return this.songsService.addBand(bandName);
+    const bandId = await this.songsService.addBand(bandName);
+    const res = await this.songsService.addSong({ songName, year, bandId });
+    return res;
   }
 }
