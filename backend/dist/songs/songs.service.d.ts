@@ -11,4 +11,5 @@ export declare class SongsService {
         year: number;
         bandId: number;
     }): Promise<Song>;
+    getAllSongs(): Promise<Song[]>;
 }

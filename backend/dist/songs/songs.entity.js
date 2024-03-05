@@ -29,7 +29,7 @@ __decorate([
 ], Song.prototype, "year", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => bands_entity_1.Band, (band) => band.songs),
-    (0, typeorm_1.JoinColumn)({ name: 'BandID' }),
+    (0, typeorm_1.JoinColumn)({ name: 'bandID' }),
     __metadata("design:type", bands_entity_1.Band)
 ], Song.prototype, "band", void 0);
 exports.Song = Song = __decorate([

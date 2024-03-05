@@ -24,6 +24,9 @@ let SongsController = class SongsController {
         const res = await this.songsService.addSong({ songName, year, bandId });
         return res;
     }
+    async fetchAllSongs() {
+        return await this.songsService.getAllSongs();
+    }
 };
 exports.SongsController = SongsController;
 __decorate([
@@ -35,6 +38,12 @@ __decorate([
     __metadata("design:paramtypes", [String, String, Number]),
     __metadata("design:returntype", Promise)
 ], SongsController.prototype, "addSong", null);
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], SongsController.prototype, "fetchAllSongs", null);
 exports.SongsController = SongsController = __decorate([
     (0, common_1.Controller)('songs'),
     __metadata("design:paramtypes", [songs_service_1.SongsService])

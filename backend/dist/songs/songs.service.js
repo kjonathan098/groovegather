@@ -41,6 +41,13 @@ let SongsService = class SongsService {
         const res = await this.songRepository.save(newSong);
         return res;
     }
+    async getAllSongs() {
+        return await this.songRepository.find({
+            relations: {
+                band: true,
+            },
+        });
+    }
 };
 exports.SongsService = SongsService;
 exports.SongsService = SongsService = __decorate([

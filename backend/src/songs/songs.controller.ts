@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Get } from '@nestjs/common';
 import { SongsService } from './songs.service';
 
 @Controller('songs')
@@ -14,5 +14,10 @@ export class SongsController {
     const bandId = await this.songsService.addBand(bandName);
     const res = await this.songsService.addSong({ songName, year, bandId });
     return res;
+  }
+
+  @Get()
+  async fetchAllSongs() {
+    return await this.songsService.getAllSongs();
   }
 }

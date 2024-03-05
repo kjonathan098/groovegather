@@ -36,4 +36,13 @@ export class SongsService {
 
     return res;
   }
+
+  // get all songs
+  async getAllSongs(): Promise<Song[]> {
+    return await this.songRepository.find({
+      relations: {
+        band: true,
+      },
+    });
+  }
 }
