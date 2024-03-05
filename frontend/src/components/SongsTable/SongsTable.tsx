@@ -1,6 +1,6 @@
 import { Box, Button, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import React, { useContext, useEffect, useState } from 'react'
-import { songListProvider } from '../context/songsListProvider'
+import { songListProvider } from '../../context/songsListProvider'
 
 const SongsTable = () => {
 	const [loading, setLoading] = useState(true)
