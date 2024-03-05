@@ -11,15 +11,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AddSongDto = void 0;
 const class_validator_1 = require("class-validator");
+const class_transformer_1 = require("class-transformer");
 class AddSongDto {
 }
 exports.AddSongDto = AddSongDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_transformer_1.Transform)(({ value }) => value.toLowerCase()),
     __metadata("design:type", String)
 ], AddSongDto.prototype, "bandName", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_transformer_1.Transform)(({ value }) => value.toLowerCase()),
     __metadata("design:type", String)
 ], AddSongDto.prototype, "songName", void 0);
 __decorate([
