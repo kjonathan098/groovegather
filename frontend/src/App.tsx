@@ -1,19 +1,21 @@
 import { Box, Center, ChakraProvider, Grid, GridItem, Show } from '@chakra-ui/react'
+import theme from './theme'
+import SongsTable from './components/SongsTable'
 
 function App() {
 	return (
-		<ChakraProvider>
+		<ChakraProvider theme={theme}>
 			<Center bg={'green'}>
 				<Box maxW={'1600px'} minW={'100%'} h={'100%'} bg={'red'}>
-					<Grid templateAreas={{ base: `"main"`, lg: ` "aside main"` }} templateColumns={{ base: '1fr', lg: '200px 1fr' }} h={'100%'}>
+					<Grid templateAreas={{ base: `"main"`, lg: ` "aside main"` }} templateColumns={{ base: '1fr', lg: '300px 1fr' }} h={'100%'}>
 						<Show above="lg">
-							<GridItem area="aside" h={'100vh'} overflow={'scroll'} bg={'yellow'}>
+							<GridItem area="aside" h={'100vh'} bg={'secondary'}>
 								Side Bar
 							</GridItem>
 						</Show>
 
-						<GridItem area="main" bg={'green'}>
-							Main
+						<GridItem area="main" bg={'primary'}>
+							<SongsTable />
 						</GridItem>
 					</Grid>
 				</Box>
