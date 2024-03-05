@@ -22,7 +22,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({ length: 255 }),
     __metadata("design:type", String)
-], Band.prototype, "name", void 0);
+], Band.prototype, "bandName", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => songs_entity_1.Song, (song) => song.band),
     __metadata("design:type", Array)

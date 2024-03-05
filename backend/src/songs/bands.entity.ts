@@ -7,7 +7,7 @@ export class Band {
   id: number;
 
   @Column({ length: 255 })
-  name: string;
+  bandName: string;
 
   @OneToMany(() => Song, (song) => song.band)
   songs: Song[];
