@@ -15,13 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SongsController = void 0;
 const common_1 = require("@nestjs/common");
 const songs_service_1 = require("./songs.service");
+const add_song_dto_1 = require("./dto/add-song.dto");
 let SongsController = class SongsController {
     constructor(songsService) {
         this.songsService = songsService;
     }
-    async addSong(bandName, songName, year) {
-        const bandId = await this.songsService.addBand(bandName);
-        const res = await this.songsService.addSong({ songName, year, bandId });
+    async addSong(addSongDto) {
+        const bandId = await this.songsService.addBand(addSongDto);
+        const res = await this.songsService.addSong(addSongDto, bandId);
         return res;
     }
     async fetchAllSongs() {
@@ -31,11 +32,9 @@ let SongsController = class SongsController {
 exports.SongsController = SongsController;
 __decorate([
     (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)('bandName')),
-    __param(1, (0, common_1.Body)('songName')),
-    __param(2, (0, common_1.Body)('year')),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, Number]),
+    __metadata("design:paramtypes", [add_song_dto_1.AddSongDto]),
     __metadata("design:returntype", Promise)
 ], SongsController.prototype, "addSong", null);
 __decorate([

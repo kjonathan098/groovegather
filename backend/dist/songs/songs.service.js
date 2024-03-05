@@ -23,19 +23,21 @@ let SongsService = class SongsService {
         this.bandRepository = bandRepository;
         this.songRepository = songRepository;
     }
-    async addBand(bandName) {
+    async addBand(addSongDto) {
+        const { bandName } = addSongDto;
         const newBand = this.bandRepository.create({ bandName });
         const { id } = await this.bandRepository.save(newBand);
         return id;
     }
-    async addSong(songData) {
-        const band = await this.bandRepository.findOneBy({ id: songData.bandId });
+    async addSong(addSongDto, bandId) {
+        const band = await this.bandRepository.findOneBy({ id: bandId });
         if (!band) {
             throw new Error('Band not found');
         }
+        const { songName, year } = addSongDto;
         const newSong = this.songRepository.create({
-            name: songData.songName,
-            year: songData.year,
+            name: songName,
+            year: year,
             band: band,
         });
         const res = await this.songRepository.save(newSong);
