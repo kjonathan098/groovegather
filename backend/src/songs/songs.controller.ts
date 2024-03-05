@@ -24,6 +24,11 @@ export class SongsController {
     return res;
   }
 
+  @Post('bulk')
+  async addBulkSongs(@Body('data') songsArray: any) {
+    return 'hello';
+  }
+
   @Get()
   async fetchAllSongs() {
     return await this.songsService.getAllSongs();

@@ -25,6 +25,10 @@ let SongsService = class SongsService {
     }
     async addBand(addSongDto) {
         const { bandName } = addSongDto;
+        const existingBand = await this.bandRepository.findOneBy({ bandName });
+        if (existingBand) {
+            return existingBand.id;
+        }
         const newBand = this.bandRepository.create({ bandName });
         const { id } = await this.bandRepository.save(newBand);
         return id;

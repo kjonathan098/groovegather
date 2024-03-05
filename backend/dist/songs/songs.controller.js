@@ -25,6 +25,10 @@ let SongsController = class SongsController {
         const res = await this.songsService.addSong(addSongDto, bandId);
         return res;
     }
+    async addBulkSongs(songsArray) {
+        console.log(songsArray);
+        return 'hello';
+    }
     async fetchAllSongs() {
         return await this.songsService.getAllSongs();
     }
@@ -38,6 +42,13 @@ __decorate([
     __metadata("design:paramtypes", [add_song_dto_1.AddSongDto]),
     __metadata("design:returntype", Promise)
 ], SongsController.prototype, "addSong", null);
+__decorate([
+    (0, common_1.Post)('bulk'),
+    __param(0, (0, common_1.Body)('data')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SongsController.prototype, "addBulkSongs", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
