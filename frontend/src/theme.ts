@@ -10,6 +10,13 @@ const theme = extendTheme({
 	colors: customColors,
 	styles: {
 		global: (props: { theme: { colors: { primary: any } } }) => ({
+			'*': {
+				'&::-webkit-scrollbar': {
+					display: 'none',
+				},
+				msOverflowStyle: 'none', // IE and Edge
+				scrollbarWidth: 'none', // Firefox
+			},
 			body: {
 				bg: props.theme.colors.primary,
 				color: 'white',

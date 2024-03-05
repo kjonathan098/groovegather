@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { createContext, useCallback, useEffect, useState } from 'react'
 import { ISong } from '../interfaces/songs.interface'
+import apiClient from '../services/api-client'
 
 export interface ISongContext {
 	testing: string
@@ -19,11 +20,10 @@ const SongListProvider = ({ children }: IProps) => {
 	const [testing, settesting] = useState('hello')
 	const [fetchingSongs, setFetchingSongs] = useState(false)
 	const [songList, setSongsList] = useState<ISong[]>([])
-	const [error, seterror] = useState()
 
 	const fetchSongs = async () => {
 		setFetchingSongs(true)
-		const res = await axios.get<ISong[]>('http://localhost:4000/songs')
+		const res = await apiClient.get<ISong[]>('/songs')
 		setFetchingSongs(false)
 		setSongsList(res.data)
 	}
@@ -33,7 +33,7 @@ const SongListProvider = ({ children }: IProps) => {
 		const formData = new FormData()
 		formData.append('file', file)
 		try {
-			await axios.post('http://localhost:4000/songs', formData, {
+			await apiClient.post('/songs', formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 				},
