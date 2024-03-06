@@ -29,6 +29,7 @@ __decorate([
 ], AddSongDto.prototype, "songName", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], AddSongDto.prototype, "year", void 0);
 //# sourceMappingURL=add-song.dto.js.map

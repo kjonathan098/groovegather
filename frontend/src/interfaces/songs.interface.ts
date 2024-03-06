@@ -7,3 +7,9 @@ export interface ISong {
 		id: number
 	}
 }
+
+export interface NewISong {
+	bandName: string
+	songName: string
+	year: number
+}

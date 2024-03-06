@@ -24,6 +24,7 @@ let SongsController = class SongsController {
         this.songsService = songsService;
     }
     async addSong(addSongDto) {
+        console.log(addSongDto);
         try {
             const bandId = await this.songsService.addBand(addSongDto);
             const res = await this.songsService.addSong(addSongDto, bandId);

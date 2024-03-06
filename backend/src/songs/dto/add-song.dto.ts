@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, Min, Max, IsNumber } from 'class-validator';
 import { Transform } from 'class-transformer';
 
 export class AddSongDto {
@@ -13,5 +13,7 @@ export class AddSongDto {
   songName: string;
 
   @IsNotEmpty()
+  @IsNumber()
+  // @Max(new Date().getFullYear())
   year: number;
 }

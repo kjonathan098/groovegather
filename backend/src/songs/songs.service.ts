@@ -41,6 +41,8 @@ export class SongsService {
 
       const { songName, year } = addSongDto;
 
+      console.log(songName, year);
+
       const newSong = this.songRepository.create({
         name: songName,
         year: year,
@@ -48,9 +50,9 @@ export class SongsService {
       });
 
       const res = await this.songRepository.save(newSong);
-
       return res;
     } catch (error) {
+      console.log('errooorrrrr', error.message);
       throw new InternalServerErrorException(
         'Failed to add the song due to an unexpected error. Please try again later.',
       );

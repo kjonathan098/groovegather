@@ -40,6 +40,7 @@ let SongsService = class SongsService {
                 throw new common_1.NotFoundException('Band not found');
             }
             const { songName, year } = addSongDto;
+            console.log(songName, year);
             const newSong = this.songRepository.create({
                 name: songName,
                 year: year,
@@ -49,6 +50,7 @@ let SongsService = class SongsService {
             return res;
         }
         catch (error) {
+            console.log('errooorrrrr', error.message);
             throw new common_1.InternalServerErrorException('Failed to add the song due to an unexpected error. Please try again later.');
         }
     }

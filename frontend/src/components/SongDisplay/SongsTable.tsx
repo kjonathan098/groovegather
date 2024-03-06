@@ -3,13 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { songListProvider } from '../../context/songsListProvider'
 
 const SongsTable = () => {
-	const [loading, setLoading] = useState(true)
-
-	const { testing, fetchingSongs, songList } = useContext(songListProvider)
-
-	useEffect(() => {
-		console.log(songList)
-	}, [songList])
+	const { fetchingSongs, songList } = useContext(songListProvider)
 
 	if (fetchingSongs) return <>Loadding...</>
 

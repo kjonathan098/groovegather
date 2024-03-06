@@ -31,10 +31,10 @@ export class SongsController {
   @Post()
   @UsePipes(ValidationPipe)
   async addSong(@Body() addSongDto: AddSongDto) {
+    console.log(addSongDto);
     try {
       // first add band to DB
       const bandId = await this.songsService.addBand(addSongDto);
-
       // Add song under band
       const res = await this.songsService.addSong(addSongDto, bandId);
       return res;
