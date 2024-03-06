@@ -5,6 +5,7 @@ import { MdDelete } from 'react-icons/md'
 import apiClient from '../../services/api-client'
 import useToastMessage from '../../hooks/useToast'
 import { IoWarningOutline } from 'react-icons/io5'
+import NoSongsOnList from './NoSongsOnList'
 
 const SongsTable = () => {
 	const { fetchingSongs, songList, deleteSong, errorResponse } = useContext(songListProvider)
@@ -22,7 +23,7 @@ const SongsTable = () => {
 			</Center>
 		)
 
-	if (!songList.length) return <>No songs where found</>
+	if (!songList.length) return <NoSongsOnList />
 
 	const handleDelete = async (id: number) => {
 		try {

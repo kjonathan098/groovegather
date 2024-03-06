@@ -20,10 +20,13 @@ const SongDisplay = () => {
 							<SearchBar />
 							<SongsTable />
 						</Box>
-						<VStack w={'100%'} p={2}>
-							<AddNewSong />
-							<CsvUploader />
-						</VStack>
+
+						<Box w={'100%'}>
+							<VStack w={'100%'} h={'fit-content'} bg={'secondary'} p={4} borderRadius={'md'} boxShadow={'md'}>
+								<AddNewSong />
+								<CsvUploader />
+							</VStack>
+						</Box>
 					</Stack>
 				</GridItem>
 			</Grid>

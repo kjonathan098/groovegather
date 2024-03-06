@@ -2,7 +2,7 @@ import { extendTheme, ThemeConfig } from '@chakra-ui/react'
 
 const customColors = {
 	primary: '#14141f',
-	secondary: '#16181d',
+	secondary: '#2f3450',
 	accent: '#fd82d1',
 }
 
