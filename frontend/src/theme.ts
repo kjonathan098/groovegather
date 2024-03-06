@@ -1,8 +1,8 @@
 import { extendTheme, ThemeConfig } from '@chakra-ui/react'
 
 const customColors = {
-	primary: '#1c2033',
-	secondary: '#0d0d19',
+	primary: '#14141f',
+	secondary: '#16181d',
 	accent: '#fd82d1',
 }
 
@@ -22,6 +22,9 @@ const theme = extendTheme({
 				color: 'white',
 			},
 		}),
+	},
+	fonts: {
+		body: '"Nunito", serif',
 	},
 })
 

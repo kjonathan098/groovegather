@@ -7,11 +7,11 @@ import asideImage from '../../media/logo.png'
 const Aside = () => {
 	return (
 		<Stack p={2} h={'100%'}>
-			<Image src={asideImage} objectFit={'cover'} h={'250px'} />
+			{/* <Image src={asideImage} objectFit={'cover'} h={'250px'} />
 			<Stack h={'100%'} justifyContent={'space-around'}>
 				<AddNewSong />
 				<CsvUploader />
-			</Stack>
+			</Stack> */}
 		</Stack>
 	)
 }

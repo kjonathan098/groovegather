@@ -4,6 +4,8 @@ import SongListProvider from './context/songsListProvider'
 import CsvUploader from './components/Aside/CsvUploader'
 import SongDisplay from './components/SongDisplay/SongDisplay'
 import Aside from './components/Aside/Aside'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 function App() {
 	return (

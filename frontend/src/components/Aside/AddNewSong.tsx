@@ -46,7 +46,7 @@ const AddNewSong = () => {
 		}
 	}
 	return (
-		<Box bg={'primary'} p={2} borderRadius={'sm'}>
+		<Box bg={'secondary'} p={2} borderRadius={'sm'} w={'100%'}>
 			<Text mb={2} fontWeight={'bold'} fontSize={'large'}>
 				Add a song to the playlist
 			</Text>
