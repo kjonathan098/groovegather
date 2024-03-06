@@ -3,12 +3,18 @@ import { BsSearch } from 'react-icons/bs'
 
 import React, { useCallback, useContext, useRef, useState } from 'react'
 import { songListProvider } from '../../../context/songsListProvider'
+import { debounce } from 'lodash'
 
 const SearchBar = () => {
-	const { fetchSongs } = useContext(songListProvider)
+	const { fetchSongs, setSearchQuery, fetchingSongs } = useContext(songListProvider)
 	const [inputValue, setInputValue] = useState('')
 	const [loading, setLoading] = useState(false)
 	const ref = useRef<HTMLInputElement>(null)
+
+	const debouncedSearch = useCallback(
+		debounce((value) => setSearchQuery(value), 500),
+		[]
+	)
 
 	return (
 		<>
@@ -21,7 +27,7 @@ const SearchBar = () => {
 				style={{ width: '100%' }}
 			>
 				<InputGroup borderRadius={3} variant={'filled'}>
-					<InputLeftElement pointerEvents="none" children={loading ? <Spinner /> : <BsSearch />} />
+					<InputLeftElement pointerEvents="none" children={<BsSearch />} />
 					<Input
 						placeholder="Search Song"
 						borderRadius={20}
@@ -30,6 +36,8 @@ const SearchBar = () => {
 						value={inputValue}
 						onChange={() => {
 							setInputValue(ref?.current?.value || '')
+
+							debouncedSearch(ref.current?.value!)
 						}}
 					/>
 				</InputGroup>
