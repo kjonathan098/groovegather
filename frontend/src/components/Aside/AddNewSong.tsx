@@ -31,20 +31,6 @@ const AddNewSong = () => {
 		},
 	})
 
-	const handleSubmit = async (event: React.FormEvent) => {
-		event.preventDefault()
-		if (!yearReleased) return
-		const newSong: NewISong = { songName, bandName: artistName, year: yearReleased }
-		try {
-			await addNewSong(newSong)
-			setSongName('')
-			setArtistName('')
-			setYearReleased(null)
-			showToast('Success', 'Song Added to List', 'success')
-		} catch (error) {
-			errorToast('Error Adding Song to List')
-		}
-	}
 	return (
 		<Box w={'100%'}>
 			<Text mb={2} fontWeight={'bold'} fontSize={'large'}>

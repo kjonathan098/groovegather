@@ -54,6 +54,7 @@
 	},
 	"devDependencies": {
 		"@types/papaparse": "^5.3.14",
-		"@types/react-slick": "^0.23.13"
+		"@types/react-slick": "^0.23.13",
+		"eslint": "^8.57.0"
 	}
 }

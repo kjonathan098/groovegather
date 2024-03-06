@@ -1,4 +1,4 @@
-import { Box, Center, Image, Stack } from '@chakra-ui/react'
+import { Box, Center, Image } from '@chakra-ui/react'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'

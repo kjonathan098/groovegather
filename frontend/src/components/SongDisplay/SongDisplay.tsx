@@ -1,9 +1,7 @@
-import React from 'react'
 import Hero from './Hero'
 import SongsTable from './SongsTable'
 import SearchBar from './SearchBar'
-import { Box, Center, Grid, GridItem, HStack, Stack, VStack } from '@chakra-ui/react'
-import AlbumSlider from './AlbumSlider'
+import { Box, Grid, GridItem, Stack, VStack } from '@chakra-ui/react'
 import AddNewSong from '../Aside/AddNewSong'
 import CsvUploader from '../Aside/CsvUploader'
 

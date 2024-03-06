@@ -1,11 +1,9 @@
-import axios, { AxiosResponse } from 'axios'
 import React, { createContext, useCallback, useEffect, useState } from 'react'
 import { ISong, NewISong } from '../interfaces/songs.interface'
 import apiClient from '../services/api-client'
 import useToastMessage from '../hooks/useToast'
 
 export interface ISongContext {
-	testing: string
 	songList: ISong[]
 	fetchingSongs: boolean
 	errorResponse: string
@@ -23,7 +21,6 @@ interface IProps {
 }
 
 const SongListProvider = ({ children }: IProps) => {
-	const [testing, settesting] = useState('hello')
 	const [fetchingSongs, setFetchingSongs] = useState(false)
 	const [songList, setSongsList] = useState<ISong[]>([])
 	const [searchQuery, setSearchQuery] = useState('')
@@ -82,11 +79,7 @@ const SongListProvider = ({ children }: IProps) => {
 		fetchSongs()
 	}, [searchQuery])
 
-	useEffect(() => {
-		fetchSongs()
-	}, [])
-
-	return <songListProvider.Provider value={{ testing, songList, fetchingSongs, errorResponse, uploadFile, fetchSongs, setSearchQuery, addNewSong, deleteSong }}>{children}</songListProvider.Provider>
+	return <songListProvider.Provider value={{ songList, fetchingSongs, errorResponse, uploadFile, fetchSongs, setSearchQuery, addNewSong, deleteSong }}>{children}</songListProvider.Provider>
 }
 
 export default SongListProvider

@@ -1,7 +1,7 @@
-import { ChangeEvent, useCallback, useContext, useRef } from 'react'
+import { ChangeEvent, useContext, useRef } from 'react'
 import { songListProvider } from '../../context/songsListProvider'
 import { FaPlus } from 'react-icons/fa'
-import { Box, Button, Center, HStack, Input, Text } from '@chakra-ui/react'
+import { Button, Center, HStack, Input, Text } from '@chakra-ui/react'
 
 const CsvUploader = () => {
 	const { uploadFile } = useContext(songListProvider)

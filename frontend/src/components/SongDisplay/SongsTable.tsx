@@ -1,8 +1,7 @@
-import { Box, Button, Center, Icon, Table, TableContainer, Tag, Tbody, Td, Th, Thead, Tr, useToast } from '@chakra-ui/react'
-import React, { useContext, useEffect, useState } from 'react'
+import { Button, Center, Spinner, Table, TableContainer, Tag, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import React, { useContext } from 'react'
 import { songListProvider } from '../../context/songsListProvider'
 import { MdDelete } from 'react-icons/md'
-import apiClient from '../../services/api-client'
 import useToastMessage from '../../hooks/useToast'
 import { IoWarningOutline } from 'react-icons/io5'
 import NoSongsOnList from './NoSongsOnList'
@@ -11,7 +10,7 @@ const SongsTable = () => {
 	const { fetchingSongs, songList, deleteSong, errorResponse } = useContext(songListProvider)
 	const { showToast, errorToast } = useToastMessage()
 
-	if (fetchingSongs) return <>Loadding...</>
+	if (fetchingSongs) return <Spinner />
 
 	if (errorResponse)
 		return (

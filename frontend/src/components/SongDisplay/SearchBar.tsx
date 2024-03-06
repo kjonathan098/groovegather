@@ -1,14 +1,13 @@
-import { Input, InputGroup, InputLeftElement, Spinner } from '@chakra-ui/react'
+import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import { BsSearch } from 'react-icons/bs'
 
-import React, { useCallback, useContext, useRef, useState } from 'react'
+import { useCallback, useContext, useRef, useState } from 'react'
 import { songListProvider } from '../../context/songsListProvider'
 import { debounce } from 'lodash'
 
 const SearchBar = () => {
-	const { fetchSongs, setSearchQuery, fetchingSongs } = useContext(songListProvider)
+	const { fetchSongs, setSearchQuery } = useContext(songListProvider)
 	const [inputValue, setInputValue] = useState('')
-	const [loading, setLoading] = useState(false)
 	const ref = useRef<HTMLInputElement>(null)
 
 	const debouncedSearch = useCallback(

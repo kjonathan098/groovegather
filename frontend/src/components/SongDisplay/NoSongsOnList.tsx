@@ -1,4 +1,4 @@
-import { Center, Tag, Text, VStack } from '@chakra-ui/react'
+import { Center, Tag, VStack } from '@chakra-ui/react'
 import { FaCat } from 'react-icons/fa'
 
 const NoSongsOnList = () => {
