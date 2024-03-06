@@ -23,48 +23,44 @@ const SongsTable = () => {
 	}
 
 	return (
-		<Center w={'100%'} p={3}>
-			<Box h={'300px'} overflow={'scroll'} w={'100%'}>
-				<Center>
-					<TableContainer maxWidth={'70%'} width={'100%'}>
-						<Table variant="striped" colorScheme="blackAlpha">
-							<Thead>
-								<Tr>
-									<Th>Song</Th>
-									<Th>Band Name</Th>
-									<Th isNumeric>Year</Th>
-									<Th>Edit</Th>
-								</Tr>
-							</Thead>
-							<Tbody>
-								{songList?.map((song) => {
-									return (
-										<React.Fragment key={song.id}>
-											<Tr>
-												<Td>{song.name}</Td>
-												<Td>{song.band.bandName}</Td>
-												<Td isNumeric>{song.year}</Td>
-												<Td>
-													<Button
-														size={'xs'}
-														colorScheme="red"
-														onClick={() => {
-															handleDelete(song.id)
-														}}
-													>
-														<MdDelete />
-													</Button>
-												</Td>
-											</Tr>
-										</React.Fragment>
-									)
-								})}
-							</Tbody>
-						</Table>
-					</TableContainer>
-				</Center>
-			</Box>
-		</Center>
+		<Box overflow="scroll" maxHeight="250px">
+			<TableContainer>
+				<Table variant="striped" colorScheme="blackAlpha">
+					<Thead>
+						<Tr>
+							<Th>Song</Th>
+							<Th>Band Name</Th>
+							<Th isNumeric>Year</Th>
+							<Th>Edit</Th>
+						</Tr>
+					</Thead>
+					<Tbody>
+						{songList?.map((song) => {
+							return (
+								<React.Fragment key={song.id}>
+									<Tr>
+										<Td>{song.name}</Td>
+										<Td>{song.band.bandName}</Td>
+										<Td isNumeric>{song.year}</Td>
+										<Td>
+											<Button
+												size={'xs'}
+												colorScheme="red"
+												onClick={() => {
+													handleDelete(song.id)
+												}}
+											>
+												<MdDelete />
+											</Button>
+										</Td>
+									</Tr>
+								</React.Fragment>
+							)
+						})}
+					</Tbody>
+				</Table>
+			</TableContainer>
+		</Box>
 	)
 }
 
