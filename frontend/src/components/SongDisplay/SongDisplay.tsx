@@ -12,7 +12,7 @@ const SongDisplay = () => {
 				<GridItem h={'100%'}>
 					<Hero />
 				</GridItem>
-				<GridItem h={'100%'} maxHeight="calc(100vh - 40vh)">
+				<GridItem h={'100%'} maxHeight="calc(100vh - 40vh)" p={2}>
 					<Stack direction={'row'} h={'100%'}>
 						<Box h={'100%'} overflow={'scroll'} w={'70%'}>
 							<SearchBar />
