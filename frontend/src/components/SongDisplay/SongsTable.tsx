@@ -1,15 +1,26 @@
-import { Box, Button, Center, Icon, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useToast } from '@chakra-ui/react'
+import { Box, Button, Center, Icon, Table, TableContainer, Tag, Tbody, Td, Th, Thead, Tr, useToast } from '@chakra-ui/react'
 import React, { useContext, useEffect, useState } from 'react'
 import { songListProvider } from '../../context/songsListProvider'
 import { MdDelete } from 'react-icons/md'
 import apiClient from '../../services/api-client'
 import useToastMessage from '../../hooks/useToast'
+import { IoWarningOutline } from 'react-icons/io5'
 
 const SongsTable = () => {
-	const { fetchingSongs, songList, deleteSong } = useContext(songListProvider)
+	const { fetchingSongs, songList, deleteSong, errorResponse } = useContext(songListProvider)
 	const { showToast, errorToast } = useToastMessage()
 
 	if (fetchingSongs) return <>Loadding...</>
+
+	if (errorResponse)
+		return (
+			<Center h={'100%'}>
+				<Tag colorScheme="red">
+					<IoWarningOutline />
+					{errorResponse}
+				</Tag>
+			</Center>
+		)
 
 	if (!songList.length) return <>No songs where found</>
 

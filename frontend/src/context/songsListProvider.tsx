@@ -7,6 +7,7 @@ export interface ISongContext {
 	testing: string
 	songList: ISong[]
 	fetchingSongs: boolean
+	errorResponse: string
 	uploadFile: (file: File) => Promise<void>
 	fetchSongs: (query?: string) => Promise<void>
 	setSearchQuery: React.Dispatch<React.SetStateAction<string>>
@@ -35,6 +36,10 @@ const SongListProvider = ({ children }: IProps) => {
 			setFetchingSongs(false)
 			setSongsList(res.data)
 		} catch (error: any) {
+			if (error.message.includes('Network Error') || error.message.includes('connection refused')) {
+				setErrorResponse('Failed to connect to the server. Please try again later')
+				return
+			}
 			setErrorResponse(error.message)
 		} finally {
 			setFetchingSongs(false)
@@ -76,7 +81,7 @@ const SongListProvider = ({ children }: IProps) => {
 		fetchSongs()
 	}, [])
 
-	return <songListProvider.Provider value={{ testing, songList, fetchingSongs, uploadFile, fetchSongs, setSearchQuery, addNewSong, deleteSong }}>{children}</songListProvider.Provider>
+	return <songListProvider.Provider value={{ testing, songList, fetchingSongs, errorResponse, uploadFile, fetchSongs, setSearchQuery, addNewSong, deleteSong }}>{children}</songListProvider.Provider>
 }
 
 export default SongListProvider
