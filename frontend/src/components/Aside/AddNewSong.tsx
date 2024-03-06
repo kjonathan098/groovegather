@@ -1,4 +1,4 @@
-import { Button, Input, Stack, Text } from '@chakra-ui/react'
+import { Box, Button, Input, Stack, Text } from '@chakra-ui/react'
 import { useContext, useState } from 'react'
 import { NewISong } from '../../interfaces/songs.interface'
 import { songListProvider } from '../../context/songsListProvider'
@@ -26,23 +26,30 @@ const AddNewSong = () => {
 		}
 	}
 	return (
-		<Stack gap={2}>
+		<Box bg={'primary'} p={2} borderRadius={'sm'}>
+			<Text mb={2} fontWeight={'bold'} fontSize={'large'}>
+				Add a song to the playlist
+			</Text>
 			<form action="" onSubmit={handleSubmit}>
-				<Stack>
-					<Text>Song Name</Text>
-					<Input placeholder="Song Name" size="sm" value={songName} onChange={(e) => setSongName(e.target.value)} />
+				<Stack spacing={2}>
+					<Stack>
+						<Text>Song Name</Text>
+						<Input placeholder="Song Name" size="sm" value={songName} onChange={(e) => setSongName(e.target.value)} />
+					</Stack>
+					<Stack>
+						<Text>Artist</Text>
+						<Input placeholder="Artist" size="sm" value={artistName} onChange={(e) => setArtistName(e.target.value)} />
+					</Stack>
+					<Stack>
+						<Text>Year Released</Text>
+						<Input placeholder="Year Released" size="sm" value={yearReleased || ''} onChange={(e) => setYearReleased(Number(e.target.value))} />
+					</Stack>
+					<Button type="submit" bg={'accent'}>
+						Add New Song
+					</Button>
 				</Stack>
-				<Stack>
-					<Text>Artist</Text>
-					<Input placeholder="Artist" size="sm" value={artistName} onChange={(e) => setArtistName(e.target.value)} />
-				</Stack>
-				<Stack>
-					<Text>Year Released</Text>
-					<Input placeholder="Year Released" size="sm" value={yearReleased || ''} onChange={(e) => setYearReleased(Number(e.target.value))} />
-				</Stack>
-				<Button type="submit">Add New Song</Button>
 			</form>
-		</Stack>
+		</Box>
 	)
 }
 
