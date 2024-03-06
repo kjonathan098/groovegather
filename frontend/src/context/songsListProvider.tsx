@@ -8,6 +8,7 @@ export interface ISongContext {
 	songList: ISong[]
 	fetchingSongs: boolean
 	uploadFile: (file: File) => Promise<void>
+	fetchSongs: (query?: string) => Promise<void>
 }
 
 export const songListProvider = createContext<ISongContext>({} as ISongContext)
@@ -21,15 +22,17 @@ const SongListProvider = ({ children }: IProps) => {
 	const [fetchingSongs, setFetchingSongs] = useState(false)
 	const [songList, setSongsList] = useState<ISong[]>([])
 
-	const fetchSongs = async () => {
+	const fetchSongs = async (query?: string) => {
+		console.log('hello')
+		const endPoint = query ? `/?search=${query}` : ''
+		console.log(endPoint)
 		setFetchingSongs(true)
-		const res = await apiClient.get<ISong[]>('/songs')
+		const res = await apiClient.get<ISong[]>(`/songs${endPoint}`)
 		setFetchingSongs(false)
 		setSongsList(res.data)
 	}
 
 	const uploadFile = useCallback(async (file: File) => {
-		console.log('hello')
 		const formData = new FormData()
 		formData.append('file', file)
 		try {
@@ -49,7 +52,7 @@ const SongListProvider = ({ children }: IProps) => {
 		fetchSongs()
 	}, [])
 
-	return <songListProvider.Provider value={{ testing, songList, fetchingSongs, uploadFile }}>{children}</songListProvider.Provider>
+	return <songListProvider.Provider value={{ testing, songList, fetchingSongs, uploadFile, fetchSongs }}>{children}</songListProvider.Provider>
 }
 
 export default SongListProvider

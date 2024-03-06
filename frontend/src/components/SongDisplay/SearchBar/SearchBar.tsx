@@ -1,9 +1,11 @@
 import { Input, InputGroup, InputLeftElement, Spinner } from '@chakra-ui/react'
 import { BsSearch } from 'react-icons/bs'
 
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useContext, useRef, useState } from 'react'
+import { songListProvider } from '../../../context/songsListProvider'
 
 const SearchBar = () => {
+	const { fetchSongs } = useContext(songListProvider)
 	const [inputValue, setInputValue] = useState('')
 	const [loading, setLoading] = useState(false)
 	const ref = useRef<HTMLInputElement>(null)
@@ -14,7 +16,7 @@ const SearchBar = () => {
 				onSubmit={(e) => {
 					e.preventDefault()
 					if (!ref.current?.value) return
-					console.log(inputValue)
+					fetchSongs(inputValue)
 				}}
 				style={{ width: '100%' }}
 			>
