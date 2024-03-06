@@ -41,14 +41,13 @@ const SongListProvider = ({ children }: IProps) => {
 
 	const uploadFile = useCallback(async (file: File) => {
 		const formData = new FormData()
-		formData.append('file', file)
+		formData.append('songsCsv', file)
 		try {
-			await apiClient.post('/songs', formData, {
+			await apiClient.post('/songs/file', formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 				},
 			})
-
 			fetchSongs()
 		} catch (error) {
 			console.error('Failed to upload file:', error)

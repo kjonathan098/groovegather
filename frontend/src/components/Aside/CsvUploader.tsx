@@ -5,17 +5,17 @@ import Papa, { ParseResult } from 'papaparse'
 const CsvUploader = () => {
 	const { uploadFile } = useContext(songListProvider)
 
-	// const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
-	// 	if (!event.target.files) return
-	// 	const file = event.target.files[0]
-	// 	await uploadFile(file)
-	// }
-
-	const handleFileChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+	const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
 		if (!event.target.files) return
-
 		const file = event.target.files[0]
-	}, [])
+		await uploadFile(file)
+	}
+
+	// const handleFileChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+	// 	if (!event.target.files) return
+
+	// 	const file = event.target.files[0]
+	// }, [])
 
 	return (
 		<div>
