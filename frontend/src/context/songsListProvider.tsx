@@ -1,6 +1,6 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import React, { createContext, useCallback, useEffect, useState } from 'react'
-import { ISong } from '../interfaces/songs.interface'
+import { ISong, NewISong } from '../interfaces/songs.interface'
 import apiClient from '../services/api-client'
 
 export interface ISongContext {
@@ -10,6 +10,7 @@ export interface ISongContext {
 	uploadFile: (file: File) => Promise<void>
 	fetchSongs: (query?: string) => Promise<void>
 	setSearchQuery: React.Dispatch<React.SetStateAction<string>>
+	addNewSong: (newSong: NewISong) => Promise<void>
 }
 
 export const songListProvider = createContext<ISongContext>({} as ISongContext)
@@ -54,6 +55,15 @@ const SongListProvider = ({ children }: IProps) => {
 		}
 	}, [])
 
+	const addNewSong = async (newSong: NewISong) => {
+		try {
+			const addedSong: AxiosResponse<ISong> = await apiClient.post('/songs', newSong)
+			fetchSongs()
+		} catch (error: any) {
+			console.log(error.data.message)
+		}
+	}
+
 	useEffect(() => {
 		fetchSongs()
 	}, [searchQuery])
@@ -62,7 +72,7 @@ const SongListProvider = ({ children }: IProps) => {
 		fetchSongs()
 	}, [])
 
-	return <songListProvider.Provider value={{ testing, songList, fetchingSongs, uploadFile, fetchSongs, setSearchQuery }}>{children}</songListProvider.Provider>
+	return <songListProvider.Provider value={{ testing, songList, fetchingSongs, uploadFile, fetchSongs, setSearchQuery, addNewSong }}>{children}</songListProvider.Provider>
 }
 
 export default SongListProvider
