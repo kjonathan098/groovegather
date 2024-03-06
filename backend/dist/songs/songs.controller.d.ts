@@ -6,6 +6,6 @@ export declare class SongsController {
     constructor(songsService: SongsService);
     addSong(addSongDto: AddSongDto): Promise<import("./songs.entity").Song>;
     addBulkSongs(file: Express.Multer.File): Promise<unknown>;
-    fetchAllSongs(query?: string): Promise<import("./songs.entity").Song[]>;
+    fetchSongs(query?: string): Promise<import("./songs.entity").Song[]>;
     deleteSong(id: string): Promise<void>;
 }

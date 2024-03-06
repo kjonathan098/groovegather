@@ -58,7 +58,7 @@ let SongsController = class SongsController {
             });
         });
     }
-    async fetchAllSongs(query) {
+    async fetchSongs(query) {
         try {
             return await this.songsService.getSongs(query);
         }
@@ -98,7 +98,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], SongsController.prototype, "fetchAllSongs", null);
+], SongsController.prototype, "fetchSongs", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),

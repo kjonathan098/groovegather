@@ -64,7 +64,6 @@ let SongsService = class SongsService {
             return await queryBuilder.getMany();
         }
         catch (error) {
-            console.log(error.message);
             throw new common_1.InternalServerErrorException('Failed to fetch songs');
         }
     }

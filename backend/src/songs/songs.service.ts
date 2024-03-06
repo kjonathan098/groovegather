@@ -74,7 +74,6 @@ export class SongsService {
 
       return await queryBuilder.getMany();
     } catch (error) {
-      console.log(error.message);
       throw new InternalServerErrorException('Failed to fetch songs');
     }
   }

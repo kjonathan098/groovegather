@@ -82,7 +82,7 @@ export class SongsController {
 
   // fetch all songs
   @Get()
-  async fetchAllSongs(@Query('search') query?: string) {
+  async fetchSongs(@Query('search') query?: string) {
     try {
       return await this.songsService.getSongs(query);
     } catch (error) {
