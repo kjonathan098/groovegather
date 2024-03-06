@@ -1,7 +1,7 @@
 import React from 'react'
-import Hero from './Hero/Hero'
-import SongsTable from './SongsTable/SongsTable'
-import SearchBar from './SearchBar/SearchBar'
+import Hero from './Hero'
+import SongsTable from './SongsTable'
+import SearchBar from './SearchBar'
 import { Stack } from '@chakra-ui/react'
 
 const SongDisplay = () => {

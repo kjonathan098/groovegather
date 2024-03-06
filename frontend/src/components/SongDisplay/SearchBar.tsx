@@ -2,7 +2,7 @@ import { Input, InputGroup, InputLeftElement, Spinner } from '@chakra-ui/react'
 import { BsSearch } from 'react-icons/bs'
 
 import React, { useCallback, useContext, useRef, useState } from 'react'
-import { songListProvider } from '../../../context/songsListProvider'
+import { songListProvider } from '../../context/songsListProvider'
 import { debounce } from 'lodash'
 
 const SearchBar = () => {

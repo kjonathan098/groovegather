@@ -1,8 +1,9 @@
 import { Box, Center, ChakraProvider, Grid, GridItem, Show } from '@chakra-ui/react'
 import theme from './theme'
 import SongListProvider from './context/songsListProvider'
-import CsvUploader from './components/CsvUploader/CsvUploader'
+import CsvUploader from './components/Aside/CsvUploader'
 import SongDisplay from './components/SongDisplay/SongDisplay'
+import Aside from './components/Aside/Aside'
 
 function App() {
 	return (
@@ -13,7 +14,7 @@ function App() {
 						<Grid templateAreas={{ base: `"main"`, lg: ` "aside main"` }} templateColumns={{ base: '1fr', lg: '300px 1fr' }} h={'100%'}>
 							<Show above="lg">
 								<GridItem area="aside" h={'100vh'} bg={'secondary'}>
-									<CsvUploader />
+									<Aside />
 								</GridItem>
 							</Show>
 

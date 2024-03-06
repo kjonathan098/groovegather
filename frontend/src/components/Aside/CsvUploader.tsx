@@ -15,27 +15,6 @@ const CsvUploader = () => {
 		if (!event.target.files) return
 
 		const file = event.target.files[0]
-		if (file) {
-			Papa.parse(file, {
-				header: true,
-				complete: async (result: ParseResult<any>) => {
-					// try {
-					// 	await fetch('http://localhost:4000/songs/bulk-add', {
-					// 		method: 'POST',
-					// 		headers: {
-					// 			'Content-Type': 'application/json',
-					// 		},
-					// 		body: JSON.stringify(result.data),
-					// 	})
-					// 	// Handle success
-					// 	alert('Songs uploaded successfully')
-					// } catch (error) {
-					// 	// Handle error
-					// 	console.error('Error uploading songs:', error)
-					// }
-				},
-			})
-		}
 	}, [])
 
 	return (
