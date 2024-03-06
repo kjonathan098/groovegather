@@ -1,9 +1,11 @@
-import { ChangeEvent, useCallback, useContext } from 'react'
+import { ChangeEvent, useCallback, useContext, useRef } from 'react'
 import { songListProvider } from '../../context/songsListProvider'
-import Papa, { ParseResult } from 'papaparse'
+import { FaPlus } from 'react-icons/fa'
+import { Box, Button, Center, HStack, Input, Text } from '@chakra-ui/react'
 
 const CsvUploader = () => {
 	const { uploadFile } = useContext(songListProvider)
+	const fileInputRef = useRef<HTMLInputElement>(null)
 
 	const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
 		if (!event.target.files) return
@@ -11,18 +13,16 @@ const CsvUploader = () => {
 		await uploadFile(file)
 	}
 
-	// const handleFileChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-	// 	if (!event.target.files) return
-
-	// 	const file = event.target.files[0]
-	// }, [])
-
 	return (
-		<div>
-			<div>
-				<input type="file" accept=".csv" onChange={handleFileChange} />
-			</div>
-		</div>
+		<Center>
+			<HStack>
+				<Button bg={'accent'} w={'30px'} h={'30px'} rounded={'full'} onClick={() => fileInputRef.current?.click()}>
+					<FaPlus color="white" fontSize={''} />
+					<Input ref={fileInputRef} type="file" accept=".csv" onChange={handleFileChange} hidden />
+				</Button>
+				<Text>Upload Files</Text>
+			</HStack>
+		</Center>
 	)
 }
 

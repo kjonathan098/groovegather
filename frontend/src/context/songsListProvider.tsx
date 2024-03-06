@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios'
 import React, { createContext, useCallback, useEffect, useState } from 'react'
 import { ISong, NewISong } from '../interfaces/songs.interface'
 import apiClient from '../services/api-client'
+import useToastMessage from '../hooks/useToast'
 
 export interface ISongContext {
 	testing: string
@@ -27,6 +28,8 @@ const SongListProvider = ({ children }: IProps) => {
 	const [songList, setSongsList] = useState<ISong[]>([])
 	const [searchQuery, setSearchQuery] = useState('')
 	const [errorResponse, setErrorResponse] = useState('')
+
+	const { showToast, errorToast } = useToastMessage()
 
 	const fetchSongs = async () => {
 		setFetchingSongs(true)
@@ -55,9 +58,11 @@ const SongListProvider = ({ children }: IProps) => {
 					'Content-Type': 'multipart/form-data',
 				},
 			})
+			showToast('Success', 'Songs added to list', 'success')
 			fetchSongs()
 		} catch (error) {
 			console.error('Failed to upload file:', error)
+			errorToast('Failed to upload file:')
 		}
 	}, [])
 
