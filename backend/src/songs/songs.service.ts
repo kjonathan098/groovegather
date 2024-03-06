@@ -32,59 +32,43 @@ export class SongsService {
   }
 
   async addSong(addSongDto: AddSongDto, bandId: number) {
-    try {
-      // TypeORM Direct Assignment Not Recommended need to fetch from DB first
-      const band = await this.bandRepository.findOneBy({ id: bandId });
-      if (!band) {
-        throw new NotFoundException('Band not found');
-      }
-
-      const { songName, year } = addSongDto;
-
-      console.log(songName, year);
-
-      const newSong = this.songRepository.create({
-        name: songName,
-        year: year,
-        band: band,
-      });
-
-      const res = await this.songRepository.save(newSong);
-      return res;
-    } catch (error) {
-      console.log('errooorrrrr', error.message);
-      throw new InternalServerErrorException(
-        'Failed to add the song due to an unexpected error. Please try again later.',
-      );
+    // TypeORM Direct Assignment Not Recommended need to fetch from DB first
+    const band = await this.bandRepository.findOneBy({ id: bandId });
+    if (!band) {
+      throw new NotFoundException('Band not found');
     }
+
+    const { songName, year } = addSongDto;
+
+    const newSong = this.songRepository.create({
+      name: songName,
+      year: year,
+      band: band,
+    });
+
+    return await this.songRepository.save(newSong);
   }
 
-  // get all songs
   async getSongs(searchQuery?: string): Promise<Song[]> {
-    try {
-      const queryBuilder = this.songRepository
-        .createQueryBuilder('song')
-        .leftJoinAndSelect('song.band', 'band')
-        .orderBy('band.bandName', 'ASC');
+    const queryBuilder = this.songRepository
+      .createQueryBuilder('song')
+      .leftJoinAndSelect('song.band', 'band')
+      .orderBy('band.bandName', 'ASC');
 
-      if (searchQuery) {
-        queryBuilder.where(
-          'song.name LIKE :searchQuery OR band.bandName LIKE :searchQuery',
-          { searchQuery: `%${searchQuery}%` },
-        );
-      }
-
-      return await queryBuilder.getMany();
-    } catch (error) {
-      throw new InternalServerErrorException('Failed to fetch songs');
+    if (searchQuery) {
+      queryBuilder.where(
+        'song.name LIKE :searchQuery OR band.bandName LIKE :searchQuery',
+        { searchQuery: `%${searchQuery}%` },
+      );
     }
+
+    return await queryBuilder.getMany();
   }
 
   async deleteSong(id: string) {
-    try {
-      await this.songRepository.delete(id);
-    } catch (error) {
-      throw new InternalServerErrorException('Failed to delete song');
+    const result = await this.songRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException('Song not found');
     }
   }
 }
