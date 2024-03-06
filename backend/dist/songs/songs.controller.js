@@ -58,9 +58,9 @@ let SongsController = class SongsController {
             });
         });
     }
-    async fetchAllSongs() {
+    async fetchAllSongs(query) {
         try {
-            return await this.songsService.getAllSongs();
+            return await this.songsService.getSongs(query);
         }
         catch (error) {
             throw error;
@@ -94,8 +94,9 @@ __decorate([
 ], SongsController.prototype, "addBulkSongs", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)('search')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], SongsController.prototype, "fetchAllSongs", null);
 __decorate([

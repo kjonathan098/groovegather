@@ -9,6 +9,7 @@ import {
   UploadedFile,
   Delete,
   Param,
+  Query,
 } from '@nestjs/common';
 import { SongsService } from './songs.service';
 import { AddSongDto } from './dto/add-song.dto';
@@ -81,9 +82,9 @@ export class SongsController {
 
   // fetch all songs
   @Get()
-  async fetchAllSongs() {
+  async fetchAllSongs(@Query('search') query?: string) {
     try {
-      return await this.songsService.getAllSongs();
+      return await this.songsService.getSongs(query);
     } catch (error) {
       throw error;
     }

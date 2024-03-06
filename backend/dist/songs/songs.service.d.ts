@@ -8,6 +8,6 @@ export declare class SongsService {
     constructor(bandRepository: Repository<Band>, songRepository: Repository<Song>);
     addBand(addSongDto: AddSongDto): Promise<number>;
     addSong(addSongDto: AddSongDto, bandId: number): Promise<Song>;
-    getAllSongs(): Promise<Song[]>;
+    getSongs(searchQuery?: string): Promise<Song[]>;
     deleteSong(id: string): Promise<void>;
 }

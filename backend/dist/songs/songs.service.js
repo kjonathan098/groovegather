@@ -52,20 +52,19 @@ let SongsService = class SongsService {
             throw new common_1.InternalServerErrorException('Failed to add the song due to an unexpected error. Please try again later.');
         }
     }
-    async getAllSongs() {
+    async getSongs(searchQuery) {
         try {
-            return await this.songRepository.find({
-                relations: {
-                    band: true,
-                },
-                order: {
-                    band: {
-                        bandName: 'ASC',
-                    },
-                },
-            });
+            const queryBuilder = this.songRepository
+                .createQueryBuilder('song')
+                .leftJoinAndSelect('song.band', 'band')
+                .orderBy('band.bandName', 'ASC');
+            if (searchQuery) {
+                queryBuilder.where('song.name LIKE :searchQuery OR band.bandName LIKE :searchQuery', { searchQuery: `%${searchQuery}%` });
+            }
+            return await queryBuilder.getMany();
         }
         catch (error) {
+            console.log(error.message);
             throw new common_1.InternalServerErrorException('Failed to fetch songs');
         }
     }
