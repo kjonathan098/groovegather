@@ -14,12 +14,12 @@ const SongDisplay = () => {
 				</GridItem>
 				<GridItem h={'100%'} maxHeight="calc(100vh - 40vh)">
 					<Stack direction={'row'} h={'100%'}>
-						<Box h={'100%'} overflow={'scroll'} w={'50%'}>
+						<Box h={'100%'} overflow={'scroll'} w={'70%'}>
 							<SearchBar />
 							<SongsTable />
 						</Box>
 
-						<Center w={'100%'} gap={3}>
+						<Center w={'30%'} gap={3}>
 							<VStack w={'100%'} h={'fit-content'} bg={'secondary'} p={4} borderRadius={'md'} boxShadow={'md'} gap={10}>
 								<AddNewSong />
 								<CsvUploader />
