@@ -30,12 +30,13 @@ To get GrooveGather up and running, follow these steps:
 1. Install the necessary dependencies:
 npm install
 
-2. Create a .env file in the root of the backend directory with the following variables to configure your MySQL connection:
-DB_PASSWORD=<your_mysql_password>
-DB_USERNAME=<your_mysql_username>
-DB_NAME=songs_list
-DB_PORT=<your_mysql_port>
-DB_HOST=<your_mysql_host>
+2. Create a `.env` file in the root of the backend directory with the following variables to configure your MySQL connection:
+   ```plaintext
+   DB_PASSWORD=<your_mysql_password>
+   DB_USERNAME=<your_mysql_username>
+   DB_NAME=songs_list
+   DB_PORT=<your_mysql_port>
+   DB_HOST=<your_mysql_host>
 
 ### Frontend Setup
 
