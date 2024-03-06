@@ -1,7 +1,7 @@
 import Hero from './Hero'
 import SongsTable from './SongsTable'
 import SearchBar from './SearchBar'
-import { Box, Grid, GridItem, Stack, VStack } from '@chakra-ui/react'
+import { Box, Center, Grid, GridItem, Stack, VStack } from '@chakra-ui/react'
 import AddNewSong from '../Aside/AddNewSong'
 import CsvUploader from '../Aside/CsvUploader'
 
@@ -19,12 +19,12 @@ const SongDisplay = () => {
 							<SongsTable />
 						</Box>
 
-						<Box w={'100%'}>
-							<VStack w={'100%'} h={'fit-content'} bg={'secondary'} p={4} borderRadius={'md'} boxShadow={'md'}>
+						<Center w={'100%'} gap={3}>
+							<VStack w={'100%'} h={'fit-content'} bg={'secondary'} p={4} borderRadius={'md'} boxShadow={'md'} gap={10}>
 								<AddNewSong />
 								<CsvUploader />
 							</VStack>
-						</Box>
+						</Center>
 					</Stack>
 				</GridItem>
 			</Grid>

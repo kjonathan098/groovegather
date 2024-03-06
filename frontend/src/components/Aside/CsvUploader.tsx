@@ -16,7 +16,7 @@ const CsvUploader = () => {
 	return (
 		<Center>
 			<HStack>
-				<Button bg={'accent'} w={'30px'} h={'30px'} rounded={'full'} onClick={() => fileInputRef.current?.click()}>
+				<Button bg={'accent'} w={'50px'} h={'50px'} rounded={'full'} onClick={() => fileInputRef.current?.click()}>
 					<FaPlus color="white" fontSize={''} />
 					<Input ref={fileInputRef} type="file" accept=".csv" onChange={handleFileChange} hidden />
 				</Button>
