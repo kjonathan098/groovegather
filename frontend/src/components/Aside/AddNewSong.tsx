@@ -15,7 +15,6 @@ const AddNewSong = () => {
 		event.preventDefault()
 		if (!yearReleased) return
 		const newSong: NewISong = { songName, bandName: artistName, year: yearReleased }
-
 		try {
 			await addNewSong(newSong)
 			setSongName('')

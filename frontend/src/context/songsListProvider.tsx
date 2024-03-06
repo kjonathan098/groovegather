@@ -11,6 +11,7 @@ export interface ISongContext {
 	fetchSongs: (query?: string) => Promise<void>
 	setSearchQuery: React.Dispatch<React.SetStateAction<string>>
 	addNewSong: (newSong: NewISong) => Promise<void>
+	deleteSong: (id: number) => Promise<void>
 }
 
 export const songListProvider = createContext<ISongContext>({} as ISongContext)
@@ -55,13 +56,16 @@ const SongListProvider = ({ children }: IProps) => {
 		}
 	}, [])
 
-	const addNewSong = async (newSong: NewISong) => {
-		try {
-			const addedSong: AxiosResponse<ISong> = await apiClient.post('/songs', newSong)
-			fetchSongs()
-		} catch (error: any) {
-			console.log(error.data.message)
-		}
+	const addNewSong = async (newSong: NewISong): Promise<void> => {
+		await apiClient.post('/songs', newSong)
+		fetchSongs()
+	}
+
+	const deleteSong = async (id: number) => {
+		await apiClient.delete(`/songs/${id}`)
+		const newList = songList.filter((song) => song.id !== id)
+		console.log(newList)
+		setSongsList(newList)
 	}
 
 	useEffect(() => {
@@ -72,7 +76,7 @@ const SongListProvider = ({ children }: IProps) => {
 		fetchSongs()
 	}, [])
 
-	return <songListProvider.Provider value={{ testing, songList, fetchingSongs, uploadFile, fetchSongs, setSearchQuery, addNewSong }}>{children}</songListProvider.Provider>
+	return <songListProvider.Provider value={{ testing, songList, fetchingSongs, uploadFile, fetchSongs, setSearchQuery, addNewSong, deleteSong }}>{children}</songListProvider.Provider>
 }
 
 export default SongListProvider
