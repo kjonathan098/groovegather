@@ -16,6 +16,7 @@ import { AddSongDto } from './dto/add-song.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import * as Papa from 'papaparse';
 import * as fs from 'fs';
+import { error } from 'console';
 
 interface CsvSong {
   Band: string;
@@ -31,16 +32,8 @@ export class SongsController {
   @Post()
   @UsePipes(ValidationPipe)
   async addSong(@Body() addSongDto: AddSongDto) {
-    console.log(addSongDto);
-    try {
-      // first add band to DB
-      const bandId = await this.songsService.addBand(addSongDto);
-      // Add song under band
-      const res = await this.songsService.addSong(addSongDto, bandId);
-      return res;
-    } catch (error) {
-      throw error;
-    }
+    const bandId = await this.songsService.addBand(addSongDto);
+    return await this.songsService.addSong(addSongDto, bandId);
   }
 
   // upload csv to db
@@ -70,33 +63,29 @@ export class SongsController {
             await this.songsService.addSong(addSongDto, bandId);
           });
 
-          await Promise.all(operations);
-          resolve('All songs have been successfully added to the database.');
+          try {
+            await Promise.all(operations);
+            resolve('All songs have been successfully added to the database.');
+          } catch (error) {
+            reject(error);
+          }
         },
-        error: (error: any) => {
-          reject(error);
-        },
+        error: error,
       });
+    }).finally(() => {
+      fs.unlinkSync(file.path);
     });
   }
 
   // fetch all songs
   @Get()
   async fetchSongs(@Query('search') query?: string) {
-    try {
-      return await this.songsService.getSongs(query);
-    } catch (error) {
-      throw error;
-    }
+    return await this.songsService.getSongs(query);
   }
 
   // delete song
   @Delete(':id')
   async deleteSong(@Param('id') id: string) {
-    try {
-      await this.songsService.deleteSong(id);
-    } catch (error) {
-      throw error;
-    }
+    await this.songsService.deleteSong(id);
   }
 }

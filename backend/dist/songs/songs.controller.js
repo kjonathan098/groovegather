@@ -19,20 +19,14 @@ const add_song_dto_1 = require("./dto/add-song.dto");
 const platform_express_1 = require("@nestjs/platform-express");
 const Papa = require("papaparse");
 const fs = require("fs");
+const console_1 = require("console");
 let SongsController = class SongsController {
     constructor(songsService) {
         this.songsService = songsService;
     }
     async addSong(addSongDto) {
-        console.log(addSongDto);
-        try {
-            const bandId = await this.songsService.addBand(addSongDto);
-            const res = await this.songsService.addSong(addSongDto, bandId);
-            return res;
-        }
-        catch (error) {
-            throw error;
-        }
+        const bandId = await this.songsService.addBand(addSongDto);
+        return await this.songsService.addSong(addSongDto, bandId);
     }
     async addBulkSongs(file) {
         const fileContent = fs.readFileSync(file.path, 'utf8');
@@ -50,30 +44,25 @@ let SongsController = class SongsController {
                         const bandId = await this.songsService.addBand(addSongDto);
                         await this.songsService.addSong(addSongDto, bandId);
                     });
-                    await Promise.all(operations);
-                    resolve('All songs have been successfully added to the database.');
+                    try {
+                        await Promise.all(operations);
+                        resolve('All songs have been successfully added to the database.');
+                    }
+                    catch (error) {
+                        reject(error);
+                    }
                 },
-                error: (error) => {
-                    reject(error);
-                },
+                error: console_1.error,
             });
+        }).finally(() => {
+            fs.unlinkSync(file.path);
         });
     }
     async fetchSongs(query) {
-        try {
-            return await this.songsService.getSongs(query);
-        }
-        catch (error) {
-            throw error;
-        }
+        return await this.songsService.getSongs(query);
     }
     async deleteSong(id) {
-        try {
-            await this.songsService.deleteSong(id);
-        }
-        catch (error) {
-            throw error;
-        }
+        await this.songsService.deleteSong(id);
     }
 };
 exports.SongsController = SongsController;
