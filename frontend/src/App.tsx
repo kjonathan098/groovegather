@@ -1,9 +1,8 @@
 import { Box, Center, ChakraProvider, Grid, GridItem, Show } from '@chakra-ui/react'
 import theme from './theme'
-import SongsTable from './components/SongsTable/SongsTable'
 import SongListProvider from './context/songsListProvider'
 import CsvUploader from './components/CsvUploader/CsvUploader'
-import Hero from './components/Hero/Hero'
+import SongDisplay from './components/SongDisplay/SongDisplay'
 
 function App() {
 	return (
@@ -19,8 +18,7 @@ function App() {
 							</Show>
 
 							<GridItem area="main" bg={'primary'}>
-								<Hero />
-								<SongsTable />
+								<SongDisplay />
 							</GridItem>
 						</Grid>
 					</Box>
