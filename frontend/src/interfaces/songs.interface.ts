@@ -13,3 +13,5 @@ export interface NewISong {
 	songName: string
 	year: number
 }
+
+export type sortOptions = 'year' | 'band' | 'name' | 'id'

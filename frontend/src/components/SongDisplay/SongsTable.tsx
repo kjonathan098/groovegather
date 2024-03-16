@@ -1,14 +1,28 @@
 import { Button, Center, Spinner, Table, TableContainer, Tag, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { songListProvider } from '../../context/songsListProvider'
 import { MdDelete } from 'react-icons/md'
 import useToastMessage from '../../hooks/useToast'
 import { IoWarningOutline } from 'react-icons/io5'
 import NoSongsOnList from './NoSongsOnList'
+import { BsSortNumericDown } from 'react-icons/bs'
 
 const SongsTable = () => {
-	const { fetchingSongs, songList, deleteSong, errorResponse } = useContext(songListProvider)
+	const { fetchingSongs, songList, deleteSong, errorResponse, sortSongs, sortByBands } = useContext(songListProvider)
 	const { showToast, errorToast } = useToastMessage()
+
+	// useEffect(() => {
+	// 	console.log(songList, 'songlist changed!')
+	// }, [songList])
+
+	const handleDelete = async (id: number) => {
+		try {
+			await deleteSong(id)
+			showToast('Success', 'Song removed from list', 'success')
+		} catch (error) {
+			errorToast('Failed to delete song')
+		}
+	}
 
 	if (fetchingSongs) return <Spinner />
 
@@ -24,23 +38,38 @@ const SongsTable = () => {
 
 	if (!songList.length) return <NoSongsOnList />
 
-	const handleDelete = async (id: number) => {
-		try {
-			await deleteSong(id)
-			showToast('Success', 'Song removed from list', 'success')
-		} catch (error) {
-			errorToast('Failed to delete song')
-		}
-	}
-
 	return (
 		<TableContainer>
 			<Table variant="striped" colorScheme="blackAlpha">
 				<Thead>
 					<Tr>
-						<Th>Song</Th>
-						<Th>Band Name</Th>
-						<Th isNumeric>Year</Th>
+						<Th>
+							<Button
+								onClick={() => {
+									sortSongs('song')
+								}}
+							>
+								Song
+							</Button>
+						</Th>
+						<Th>
+							<Button
+								onClick={() => {
+									sortByBands('band')
+								}}
+							>
+								Band Name
+							</Button>
+						</Th>
+						<Th isNumeric>
+							<Button
+								onClick={() => {
+									sortSongs('year')
+								}}
+							>
+								<BsSortNumericDown />
+							</Button>
+						</Th>
 						<Th>Edit</Th>
 					</Tr>
 				</Thead>

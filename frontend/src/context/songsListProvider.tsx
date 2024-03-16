@@ -1,7 +1,9 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react'
-import { ISong, NewISong } from '../interfaces/songs.interface'
+import { ISong, NewISong, sortOptions } from '../interfaces/songs.interface'
 import apiClient from '../services/api-client'
 import useToastMessage from '../hooks/useToast'
+import { sortByBand, sort } from '../utils/sortSongs'
+import { fetchSongsService, addNewSongService } from '../services/songs-service'
 
 export interface ISongContext {
 	songList: ISong[]
@@ -12,6 +14,8 @@ export interface ISongContext {
 	setSearchQuery: React.Dispatch<React.SetStateAction<string>>
 	addNewSong: (newSong: NewISong) => Promise<void>
 	deleteSong: (id: number) => Promise<void>
+	sortSongs(sortBy: string): void
+	sortByBands(sortBy: sortOptions): void
 }
 
 export const songListProvider = createContext<ISongContext>({} as ISongContext)
@@ -29,10 +33,9 @@ const SongListProvider = ({ children }: IProps) => {
 	const { showToast, errorToast } = useToastMessage()
 
 	const fetchSongs = async () => {
-		setFetchingSongs(true)
 		const endPoint = searchQuery ? `/?search=${searchQuery}` : ''
 		try {
-			const res = await apiClient.get<ISong[]>(`/songs${endPoint}`)
+			const res = await fetchSongsService(endPoint)
 			setFetchingSongs(false)
 			setSongsList(res.data)
 		} catch (error: any) {
@@ -64,7 +67,12 @@ const SongListProvider = ({ children }: IProps) => {
 	}, [])
 
 	const addNewSong = async (newSong: NewISong): Promise<void> => {
-		await apiClient.post('/songs', newSong)
+		try {
+			await addNewSongService(newSong)
+		} catch (error: any) {
+			console.log(error)
+			setErrorResponse(error.message)
+		}
 		fetchSongs()
 	}
 
@@ -75,11 +83,21 @@ const SongListProvider = ({ children }: IProps) => {
 		setSongsList(newList)
 	}
 
+	function sortSongs(sortBy: sortOptions) {
+		const sortedList = songList.sort((a, b) => sort(a, b, 'asc', 'name'))
+		setSongsList([...sortedList])
+	}
+
+	function sortByBands(sortBy: sortOptions) {
+		const sortedList = songList.sort((a, b) => sortByBand(a, b, 'asc'))
+		setSongsList([...sortedList])
+	}
+
 	useEffect(() => {
 		fetchSongs()
 	}, [searchQuery])
 
-	return <songListProvider.Provider value={{ songList, fetchingSongs, errorResponse, uploadFile, fetchSongs, setSearchQuery, addNewSong, deleteSong }}>{children}</songListProvider.Provider>
+	return <songListProvider.Provider value={{ songList, fetchingSongs, errorResponse, uploadFile, fetchSongs, setSearchQuery, addNewSong, deleteSong, sortSongs, sortByBands }}>{children}</songListProvider.Provider>
 }
 
 export default SongListProvider
