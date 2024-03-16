@@ -84,7 +84,8 @@ const SongListProvider = ({ children }: IProps) => {
 	}
 
 	function sortSongs(sortBy: sortOptions) {
-		const sortedList = songList.sort((a, b) => sort(a, b, 'asc', 'name'))
+		console.log('hero')
+		const sortedList = songList.sort((a, b) => sort(a, b, 'asc', sortBy))
 		setSongsList([...sortedList])
 	}
 

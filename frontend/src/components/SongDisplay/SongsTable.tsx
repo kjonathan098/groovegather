@@ -46,7 +46,7 @@ const SongsTable = () => {
 						<Th>
 							<Button
 								onClick={() => {
-									sortSongs('song')
+									sortSongs('name')
 								}}
 							>
 								Song
