@@ -26,7 +26,9 @@ const SearchBar = () => {
 				style={{ width: '100%' }}
 			>
 				<InputGroup borderRadius={3} variant={'filled'}>
-					<InputLeftElement pointerEvents="none" children={<BsSearch />} />
+					<InputLeftElement pointerEvents="none">
+						<BsSearch />
+					</InputLeftElement>
 					<Input
 						placeholder="Search Song"
 						borderRadius={20}
@@ -34,9 +36,11 @@ const SearchBar = () => {
 						ref={ref}
 						value={inputValue}
 						onChange={() => {
-							setInputValue(ref?.current?.value || '')
-
-							debouncedSearch(ref.current?.value!)
+							const value = ref.current?.value
+							if (typeof value === 'string') {
+								setInputValue(value)
+								debouncedSearch(value)
+							}
 						}}
 					/>
 				</InputGroup>
