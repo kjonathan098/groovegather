@@ -15,7 +15,7 @@ import { MulterModule } from '@nestjs/platform-express';
       useFactory: (configService: ConfigService) => ({
         type: 'mysql',
         host: configService.get('DB_HOST'),
-        port: +configService.get('DB_PORT'),
+        port: configService.get('DB_PORT'),
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
@@ -29,3 +29,5 @@ import { MulterModule } from '@nestjs/platform-express';
   providers: [],
 })
 export class AppModule {}
+
+// docker run --name sql-test -p 3307:3306 -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql

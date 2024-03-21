@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  nestjs_api:
+    build: .
+    ports:
+      - '4000:4000'
+    environment:
+      - .env
+    volumes:
+      - ./src:/app/src
+    depends_on:
+      - mysql_db
+  mysql_db:
+    image: mysql
+    ports:
+      - '3307:3306'
+    environment:
+      - mysql.env
+    volumes:
+      - songs:/var/lib/mysql
+volumes:
+  songs:
